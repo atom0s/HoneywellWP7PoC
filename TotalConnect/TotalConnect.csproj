@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C53077C4-0EC0-47FC-B460-94F1D46189EA}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TotalConnect</RootNamespace>
+    <AssemblyName>TotalConnect</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>TotalConnect.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>TotalConnect.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WP71, Version=4.1.24.17306, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight.WP71, Version=4.1.24.17306, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework" />
+    <Reference Include="protobuf-net">
+      <HintPath>References\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\ApplicationState.cs" />
+    <Compile Include="Classes\NavigationArgs.cs" />
+    <Compile Include="Classes\ProtobufHandler.cs" />
+    <Compile Include="Classes\StorageManager.cs" />
+    <Compile Include="Converters\StatusIdToBackgroundColorConverter.cs" />
+    <Compile Include="Converters\StatusIdToIconConverter.cs" />
+    <Compile Include="Extensions\ObservableExtensions.cs" />
+    <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\NotifiableModel.cs" />
+    <Compile Include="Model\ZoneEntry.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\TotalConnectService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ViewModelBase.cs" />
+    <Compile Include="View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <DesignData Include="View\ExampleData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </DesignData>
+    <None Include="Assets\Roboto-Regular.ttf" />
+    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\WMAppManifest.xml" />
+    <None Include="Service References\TotalConnectService\tc2.disco" />
+    <None Include="Service References\TotalConnectService\configuration91.svcinfo" />
+    <None Include="Service References\TotalConnectService\configuration.svcinfo" />
+    <None Include="Service References\TotalConnectService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Resource Include="Assets\cell_status_zone_bypass.png" />
+    <Resource Include="Assets\cell_status_zone_bypass_cleared.png" />
+    <Resource Include="Assets\cell_status_zone_fault.png" />
+    <Resource Include="Assets\cell_status_zone_supervision.png" />
+    <Resource Include="Assets\cell_status_zone_supervision_cleared.png" />
+    <Resource Include="Assets\cell_status_zone_tamper.png" />
+    <Resource Include="Assets\cell_status_zone_tamper_cleared.png" />
+    <Resource Include="Assets\tc2icon.png" />
+    <Content Include="ServiceReferences.ClientConfig" />
+    <None Include="Service References\TotalConnectService\tc2.wsdl" />
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.AddSlideShowPhotoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.AnythingChangedResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ArmSecuritySystemResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.AuthenticateLoginResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.AutomationDataResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.AutomationSyncResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraConfigurationResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraFirmwareListResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraInformationResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraIOStateResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraListResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraPositionResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraSignalStrengthResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CameraStateResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ConfigStreamModeResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ConfiguredEventExResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ConfiguredEventResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ContentConfigurationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CountryListResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CountryStateListResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CreateEditASceneResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.CurrentWeatherResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.DealerMessageResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.DeleteUserInfoResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.DeleteUserResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.DisableEnableUserResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.DisarmSecuritySystemResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.EmailValidationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.EventMetaDataExResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.EventMetaDataResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.EventsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.EventTypeFilterResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ExecuteASceneResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ForecastWeatherResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GeofenceListResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GetAllNotificationListsResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GetContentImageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GetImageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GetLogoImageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GetZonesListInStateResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GPSDeviceGeoFenceResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GPSDevicesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GPSLocationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.GPSPopupURLResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ImportSecurityInfoResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.InterfaceSchemaResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.InterfaceSchemaResultsEx.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.IsUserNameValidResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.LocationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.LocationSimpleResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.LockControlDataResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.MediaServerConfigurationResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.NotesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.NotificationConditionalStateResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.NotificationScheduleResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.PanelMetadataAndStatusResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.PanelMetadataAndStatusResultsEx.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.PanelStatusResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.PanelStatusResultsEx.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ReadConsoleDisplayResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.RemoteAuthenticateLoginResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SaveCreateUserInfoResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SaveLocationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SaveLocationSimpleResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SavePhotoForGPSDeviceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SaveUserResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SceneDataResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SceneDeletionResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SceneListInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SessionDetailResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SlideShowPhotoResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SMSEmailCarrierResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SummaryConfiguredEventString.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SwitchControlDataResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.SynchronizeUserResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ThermostatControlDataResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ThermostatScheduleResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.TimeZonesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.TransactNotificationListResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.UpdateSwitchIconResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.UpdateThermostatScheduleResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.UserConfigurationResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.UserDetailResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.UserInfoResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.UserListResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.VideoFileURLResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.WAPClientsListResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.WebMethodResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TotalConnectService\TotalConnect.TotalConnectService.ZoneBypassResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApplicationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Assets\background_armed.png" />
+    <Resource Include="Assets\background_arming_disarming.png" />
+    <Resource Include="Assets\background_disarmed.png" />
+    <Resource Include="Assets\background_login.png" />
+    <Resource Include="Assets\but_arm_away.png" />
+    <Resource Include="Assets\but_arm_stay.png" />
+    <Resource Include="Assets\but_disarm.png" />
+    <Resource Include="Assets\but_keypad.png" />
+    <Resource Include="Assets\but_login.png" />
+    <Resource Include="Assets\cell_status_zone_trouble.png" />
+    <Resource Include="Assets\form_field_frame.png" />
+    <Resource Include="Assets\form_field_frame_remember_me.png" />
+    <Resource Include="Assets\icon_large_arm.png" />
+    <Resource Include="Assets\icon_large_arming_disarming.png" />
+    <Resource Include="Assets\icon_large_disarm.png" />
+    <Resource Include="Assets\login_icon.png" />
+    <Resource Include="Assets\powered_by_honeywell_logo.png" />
+    <Resource Include="Assets\but_login_o.png" />
+    <Resource Include="Assets\but_arm_o.png" />
+    <Resource Include="Assets\but_disarm_o.png" />
+    <Content Include="Assets\success.wav" />
+    <Content Include="Background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SplashScreenImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TotalConnectService\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+</Project>

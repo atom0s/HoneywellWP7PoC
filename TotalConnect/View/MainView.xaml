@@ -1,0 +1,177 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="TotalConnect.View.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=System.Windows"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main}" xmlns:my="clr-namespace:TotalConnect.Converters">
+
+    <phone:PhoneApplicationPage.Resources>
+        <CollectionViewSource Source="{Binding Source={StaticResource Locator}, Mode=OneWay, Path=Main.ZoneList}" 
+                              x:Name="ZoneListCollectionViewSource"
+                              x:Key="SortedZoneList" 
+                              Filter="ZoneListFilter">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="ZoneId" Direction="Descending"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <my:StatusIdToBackgroundColorConverter x:Key="StatusIdToBackgroundConverter" />
+        <my:StatusIdToIconConverter x:Key="StatusIdToIconConverter" />
+    </phone:PhoneApplicationPage.Resources>
+    
+    <Grid x:Name="ContentRoot">
+        <controls:Pivot x:Name="ContentPivot">
+
+            <!-- Main Content Pivot -->
+            <controls:PivotItem x:Name="MainSecurityPivot" Header="security" Margin="0">
+                <Grid x:Name="MainSecurityContainer">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="{Binding SecurityStatusBackground}" />
+                    </Grid.Background>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="300" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Security Status Container -->
+                    <Grid x:Name="SecurityStatusContainer" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <StackPanel>
+                            <TextBlock x:Name="txtSecurityStatus" Text="{Binding SecurityStatus, Mode=TwoWay}" HorizontalAlignment="Center" FontFamily="{StaticResource RobotoRegular}" FontSize="30" FontWeight="Bold" Foreground="White" Margin="0,0,0,75" />
+                            <Image x:Name="StatusIcon" Source="{Binding SecurityStatusIcon}" Width="150" Height="150" />
+                        </StackPanel>
+                    </Grid>
+                    
+                    <!-- Security Arming Buttons -->
+                    <StackPanel Grid.Row="1" Margin="0,50,0,0">
+                        <Button x:Name="btnArmAway" Content="Arm Away        " Height="75" Width="350" BorderThickness="0" FontFamily="{StaticResource RobotoRegular}" FontSize="20" FontWeight="Bold" Command="{Binding ArmAwayCommand}" Foreground="White"
+                                Style="{Binding Source={StaticResource SecurityArmAwayButtonStyle}}"
+                                />
+                        <Button x:Name="btnArmStay" Content="Arm Stay        " Height="75" Width="350" BorderThickness="0" FontFamily="{StaticResource RobotoRegular}" FontSize="20" FontWeight="Bold" Command="{Binding ArmStayCommand}" Foreground="White"
+                                Style="{Binding Source={StaticResource SecurityArmStayButtonStyle}}"
+                                />
+                        <Button x:Name="btnDisarm" Content="Disarm         " Height="75" Width="350" BorderThickness="0" FontFamily="{StaticResource RobotoRegular}" FontSize="20" FontWeight="Bold" Command="{Binding DisarmCommand}" Foreground="White"
+                                Style="{Binding Source={StaticResource SecurityDisarmButtonStyle}}"
+                                />
+                    </StackPanel>
+                    
+                    <!-- Processing Panel Container -->
+                    <Grid x:Name="ProcessingPanelContainer" Grid.Row="1" Background="#AA000000" Visibility="{Binding ProcessingPanelVisibility}">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="28" Text="Processing Command.. Please wait..." />
+                            <ProgressBar Foreground="Red" IsIndeterminate="True" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+            
+            <!-- Zone Info Pivot -->
+            <controls:PivotItem x:Name="ZoneInfoPivot" Header="zones" Margin="0">
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="../Assets/background_login.png" />
+                    </Grid.Background>
+
+                    <ListBox x:Name="lstZoneList" Background="Transparent"
+                             d:DataContext="{d:DesignData Source=ExampleData.xaml}"
+                             ItemContainerStyle="{StaticResource StretchedItemContainerStyle}" ItemsSource="{Binding Path=ZoneList}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="ZoneEntry" Background="{Binding Converter={StaticResource StatusIdToBackgroundConverter}, Path=ZoneStatusId}" Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="5,0,0,0">
+                                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontWeight="Bold" Text="{Binding ZoneId, StringFormat='Sensor {0} - '}" />
+                                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontStyle="Italic" Text="{Binding ZoneName}" />
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Grid.Row="1" FontFamily="{StaticResource RobotoRegular}" FontStyle="Italic" Margin="10,0,0,0" Text="{Binding ZoneStatus, StringFormat='Status: {0}'}" />
+                                    <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding Converter={StaticResource StatusIdToIconConverter}, Path=ZoneStatusId}" Width="48" Height="48" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Grid Background="#AA000000" Visibility="{Binding ZoneListLoadingVisibility}">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="28" FontWeight="Bold" Text="Zone list loading.. please wait... " />
+                            <ProgressBar IsIndeterminate="True" Foreground="Red" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <!-- About Pivot -->
+            <controls:PivotItem x:Name="AboutPivot" Header="about" Margin="0">
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="../Assets/background_login.png" />
+                    </Grid.Background>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Column="0" Grid.Row="0" Source="../Assets/tc2icon.png" Width="128" Height="128" Margin="50,50,15,0" />
+                    <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0">
+                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="40" FontWeight="Bold" Text="TotalConnect" />
+                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="18" FontStyle="Italic" Text="for Windows Phone 7" Margin="10,0,0,0" />
+                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="18" Text="Version: 1.0.0" />
+                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="18" Text="Coded by: atom0s" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,15,10,0">
+                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="40" FontWeight="Bold" Text="About" />
+                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="18" TextWrapping="Wrap">
+                            TotalConnect for Windows Phone 7 IS NOT a product of Honeywell or AlarmNet. This application comes
+                            with no warranty at all and usage is at your own risk!
+                            <LineBreak />
+                            <LineBreak />
+                            This application was made due to the lack of a Windows Phone version to control Honeywell security
+                            systems. I made this app to control the security system of my current house and had never intended
+                            to release it publicly. However I saw others seeking the same thing I wanted and wished to share
+                            what created with others.
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,15,10,0">
+                        <TextBlock FontFamily="{StaticResource RobotoRegular}" FontSize="40" FontWeight="Bold" Text="Credits" />
+                        <TextBlock TextWrapping="Wrap" FontSize="14" FontStyle="Italic" Margin="10,0,0,0">
+                            <Run>• Windows Phone 7 Code - atom0s</Run><LineBreak/>
+                            <Run>• Images, Assets, Service Information - Honeywell</Run><LineBreak/>
+                            <Run>• Font - Android</Run><LineBreak/>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+        
+        <Grid x:Name="DebugInfoContainer" VerticalAlignment="Bottom">
+            <TextBlock Text="{Binding DebugStatus}" />
+        </Grid>
+    </Grid>
+    
+</phone:PhoneApplicationPage>

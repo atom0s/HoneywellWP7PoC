@@ -1,0 +1,21 @@
+﻿<viewModel:MainViewModel
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:viewModel="clr-namespace:TotalConnect.ViewModel"
+        xmlns:model="clr-namespace:TotalConnect.Model">
+  <viewModel:MainViewModel.ZoneList>
+    <model:ZoneEntry ZoneId="0" ZoneName="test 0" ZoneStatus="Normal" ZoneStatusId="0" />
+    <model:ZoneEntry ZoneId="1" ZoneName="test 1" ZoneStatus="Bypassed" ZoneStatusId="1" />
+    <model:ZoneEntry ZoneId="2" ZoneName="test 2" ZoneStatus="Faulted" ZoneStatusId="2" />
+    <model:ZoneEntry ZoneId="3" ZoneName="test 3" ZoneStatus="Trouble" ZoneStatusId="8" />
+    <model:ZoneEntry ZoneId="4" ZoneName="test 4" ZoneStatus="Tampered" ZoneStatusId="16" />
+    <model:ZoneEntry ZoneId="5" ZoneName="test 5" ZoneStatus="Supervison Failed" ZoneStatusId="32" />
+    <model:ZoneEntry ZoneId="6" ZoneName="test 6" ZoneStatus="Normal" ZoneStatusId="0" />
+    <model:ZoneEntry ZoneId="7" ZoneName="test 7" ZoneStatus="Normal" ZoneStatusId="0" />
+    <model:ZoneEntry ZoneId="8" ZoneName="test 8" ZoneStatus="Bypassed" ZoneStatusId="1" />
+    <model:ZoneEntry ZoneId="9" ZoneName="test 9" ZoneStatus="Normal" ZoneStatusId="0" />
+    <model:ZoneEntry ZoneId="10" ZoneName="test 10" ZoneStatus="Normal" ZoneStatusId="0" />
+    <model:ZoneEntry ZoneId="11" ZoneName="test 11" ZoneStatus="Normal" ZoneStatusId="0" />
+    <model:ZoneEntry ZoneId="12" ZoneName="test 12" ZoneStatus="Normal" ZoneStatusId="0" />
+    <model:ZoneEntry ZoneId="13" ZoneName="test 13" ZoneStatus="Normal" ZoneStatusId="0" />
+  </viewModel:MainViewModel.ZoneList>
+</viewModel:MainViewModel>

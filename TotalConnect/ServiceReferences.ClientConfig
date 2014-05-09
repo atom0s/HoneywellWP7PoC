@@ -1,0 +1,16 @@
+﻿<configuration>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="svcTC2APISoap" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647">
+          <security mode="Transport" />
+        </binding>
+      </basicHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="https://rs.alarmnet.com/tc21api/tc2.asmx"
+        binding="basicHttpBinding" bindingConfiguration="svcTC2APISoap"
+        contract="TotalConnectService.svcTC2APISoap" name="svcTC2APISoap" />
+    </client>
+  </system.serviceModel>
+</configuration>
